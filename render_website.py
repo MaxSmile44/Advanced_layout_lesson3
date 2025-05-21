@@ -1,3 +1,4 @@
+import argparse
 import json
 import os
 
@@ -10,8 +11,12 @@ NUM_BOOKS_ON_PAGE = 10
 
 
 def on_reload(env):
+    parser = argparse.ArgumentParser(description='Specify the path to json-file from where book data will be taken')
+    parser.add_argument('-f', '--file', default='meta_data.json', type=str, help='file path')
+    args = parser.parse_args()
+
     template = env.get_template('template.html')
-    with open('meta_data.json', 'r', encoding='utf-8') as my_file:
+    with open(args.file, 'r', encoding='utf-8') as my_file:
         meta_data_json = my_file.read()
     meta_data = json.loads(meta_data_json)
     meta_data = list(chunked(meta_data, NUM_BOOKS_ON_PAGE))
@@ -28,6 +33,7 @@ def main():
         loader=FileSystemLoader('.'),
         autoescape=select_autoescape(['html', 'xml'])
     )
+
     on_reload(env)
     server.watch('template.html', on_reload)
     server.serve(root='.')
