@@ -27,6 +27,7 @@ python render_website.py
 ### Запуск оффлайн-версию библиотеки
 
 Скачайте архив файлов библиотеки на компьютер - Code-Download ZIP
+![image](https://github.com/user-attachments/assets/17be66d3-f126-4225-ad9c-f64170cc7013)
 
 Разархивируйте архив
 
