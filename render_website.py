@@ -18,7 +18,7 @@ def on_reload(env):
     for i, file_data in enumerate(meta_data, start=1):
         os.makedirs(os.path.join('.', 'pages'), exist_ok=True)
         rendered_page = template.render(meta_data=file_data, num_pages=len(meta_data), num_page=i)
-        with open(f'./pages/index{i}.html', 'w', encoding="utf8") as file:
+        with open(f'./pages/index{i}.html', 'w', encoding='utf8') as file:
             file.write(rendered_page)
 
 
