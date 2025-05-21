@@ -6,12 +6,15 @@ from livereload import Server
 from more_itertools import chunked
 
 
+NUM_BOOKS_ON_PAGE = 10
+
+
 def on_reload(env):
     template = env.get_template('template.html')
     with open('meta_data.json', 'r', encoding='utf-8') as my_file:
         meta_data_json = my_file.read()
     meta_data = json.loads(meta_data_json)
-    meta_data = list(chunked(meta_data, 10))
+    meta_data = list(chunked(meta_data, NUM_BOOKS_ON_PAGE))
     for i, file_data in enumerate(meta_data, start=1):
         os.makedirs(os.path.join('.', 'pages'), exist_ok=True)
         rendered_page = template.render(meta_data=file_data, num_pages=len(meta_data), num_page=i)
