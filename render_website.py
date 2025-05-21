@@ -6,14 +6,7 @@ from livereload import Server
 from more_itertools import chunked
 
 
-server = Server()
-env = Environment(
-    loader=FileSystemLoader('.'),
-    autoescape=select_autoescape(['html', 'xml'])
-)
-
-
-def on_reload():
+def on_reload(env):
     template = env.get_template('template.html')
     with open('meta_data.json', 'r', encoding='utf-8') as my_file:
         meta_data_json = my_file.read()
@@ -27,7 +20,12 @@ def on_reload():
 
 
 def main():
-    on_reload()
+    server = Server()
+    env = Environment(
+        loader=FileSystemLoader('.'),
+        autoescape=select_autoescape(['html', 'xml'])
+    )
+    on_reload(env)
     server.watch('template.html', on_reload)
     server.serve(root='.')
 
