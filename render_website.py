@@ -7,10 +7,15 @@ from livereload import Server
 from more_itertools import chunked
 
 
+server = Server()
+env = Environment(
+    loader=FileSystemLoader('.'),
+    autoescape=select_autoescape(['html', 'xml'])
+)
 NUM_BOOKS_ON_PAGE = 10
 
 
-def on_reload(env):
+def on_reload():
     parser = argparse.ArgumentParser(description='Specify the path to json-file from where book data will be taken')
     parser.add_argument('-f', '--file', default='meta_data.json', type=str, help='file path')
     args = parser.parse_args()
@@ -28,13 +33,7 @@ def on_reload(env):
 
 
 def main():
-    server = Server()
-    env = Environment(
-        loader=FileSystemLoader('.'),
-        autoescape=select_autoescape(['html', 'xml'])
-    )
-
-    on_reload(env)
+    on_reload()
     server.watch('template.html', on_reload)
     server.serve(root='.')
 
