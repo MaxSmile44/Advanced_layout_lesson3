@@ -7,11 +7,6 @@ from livereload import Server
 from more_itertools import chunked
 
 
-server = Server()
-env = Environment(
-    loader=FileSystemLoader('.'),
-    autoescape=select_autoescape(['html', 'xml'])
-)
 NUM_BOOKS_ON_PAGE = 10
 
 
@@ -39,4 +34,9 @@ def main():
 
 
 if __name__ == '__main__':
+    server = Server()
+    env = Environment(
+        loader=FileSystemLoader('.'),
+        autoescape=select_autoescape(['html', 'xml'])
+    )
     main()
